@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile Generator</title>
+</head>
+
+<body>
+  <main>
+    <p>Select all text elements you'd like to generate something to</p>
+
+    <fieldset>
+      <input data-handler="name-type" id="male" type="radio" name="type" value="male" />
+      <label for="male">Male</label>
+
+      <input data-handler="name-type" id="female" type="radio" name="type" value="female" />
+      <label for="female">Female</label>
+
+      <input data-handler="name-type" checked id="both" type="radio" name="type" value="both" />
+      <label for="both">Both</label>
+    </fieldset>
+
+    <button type="button" data-appearance="primary" data-handler="name-text">
+      Get Name
+    </button>
+
+    <button type="button" data-appearance="primary" data-handler="country-text">
+      Get Country
+    </button>
+
+    <button type="button" data-appearance="primary" data-handler="date-text">
+      Get Date
+    </button>
+  </main>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

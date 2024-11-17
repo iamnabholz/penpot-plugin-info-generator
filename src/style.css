@@ -1,0 +1,20 @@
+@import "@penpot/plugin-styles/styles.css";
+
+body {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  padding: 10px 0;
+}
+
+p {
+  margin-block-end: 0.75rem;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
