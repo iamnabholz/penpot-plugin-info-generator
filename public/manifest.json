@@ -1,6 +1,6 @@
 {
   "name": "Starter Profile",
   "code": "plugin.js",
-  "description": "Geerate random information for user profiles; usernames, names, countries and more.",
+  "description": "Generate placeholder information for your designs; usernames, names, countries and more.",
   "permissions": ["content:read", "content:write"]
 }
