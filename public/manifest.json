@@ -1,6 +1,6 @@
 {
-  "name": "User Profile Generator",
+  "name": "Starter Profile",
   "code": "plugin.js",
-  "description": "Plugin to generate random information to fill user profiles; Generate usernames, names, countries and more.",
+  "description": "Geerate random information for user profiles; usernames, names, countries and more.",
   "permissions": ["content:read", "content:write"]
 }

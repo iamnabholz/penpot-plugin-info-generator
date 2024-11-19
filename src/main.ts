@@ -4,28 +4,50 @@ import "./style.css";
 const searchParams = new URLSearchParams(window.location.search);
 document.body.dataset.theme = searchParams.get("theme") ?? "light";
 
-document.querySelector("[data-handler='date-text']")?.addEventListener("click", () => {
-  // send message to plugin.ts
-  parent.postMessage("date-text", "*");
-});
+const choiceSelector = document.querySelector(".choice-selector")!;
+let selectedValue = "Any";
 
-document.querySelector("[data-handler='country-text']")?.addEventListener("click", () => {
-  // send message to plugin.ts
-  parent.postMessage("country-text", "*");
-});
+choiceSelector.addEventListener("click", (event: Event) => {
+  const target = event.target as HTMLElement;
 
-document.querySelector("[data-handler='name-text']")?.addEventListener("click", () => {
-  // send message to plugin.ts
-  //const value = document.querySelector("[data-handler='name-type']");
-  const val = document.querySelectorAll("[data-handler='name-type']");
+  if (target.tagName === "P") {
+    // Remove current selection
+    const currentSelected = choiceSelector.querySelector(".choice-selected");
+    currentSelected?.classList.remove("choice-selected");
 
-  for (let index = 0; index < val.length; index++) {
-    const element = val[index] as HTMLInputElement;
-    if (element.checked) {
-      parent.postMessage({ msg: "name-text", type: element.value }, "*");
-    }
+    // Add selection to clicked item
+    target.classList.add("choice-selected");
+    selectedValue = target.textContent || "Any";
   }
 });
+
+document
+  .querySelector("[data-handler='date-text']")
+  ?.addEventListener("click", () => {
+    // send message to plugin.ts
+    parent.postMessage("date-text", "*");
+  });
+
+document
+  .querySelector("[data-handler='username-text']")
+  ?.addEventListener("click", () => {
+    // send message to plugin.ts
+    parent.postMessage("username-text", "*");
+  });
+
+document
+  .querySelector("[data-handler='country-text']")
+  ?.addEventListener("click", () => {
+    // send message to plugin.ts
+    parent.postMessage("country-text", "*");
+  });
+
+document
+  .querySelector("[data-handler='name-text']")
+  ?.addEventListener("click", () => {
+    // send message to plugin.ts
+    parent.postMessage({ msg: "name-text", type: selectedValue }, "*");
+  });
 
 // Listen plugin.ts messages
 window.addEventListener("message", (event) => {
