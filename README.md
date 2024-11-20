@@ -1,6 +1,6 @@
 # Penpot Starter Profile
 
-![image](content/cover.png)
+![image](public/content/cover.png)
 
 This plugin allows you to generate information to use as placeholder in your designs.
 
