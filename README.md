@@ -6,6 +6,7 @@ This plugin allows you to generate information to use as placeholder in your des
 
 You can generate things like:
 
+- Pixel avatars (based on 'minidenticon')[https://github.com/laurentpayot/minidenticons]
 - First names
 - Usernames
 - Countries

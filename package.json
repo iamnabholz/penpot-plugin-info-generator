@@ -1,7 +1,7 @@
 {
   "name": "penpot-plugin-starter-profile",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite-live-preview",
@@ -12,6 +12,7 @@
     "@penpot/plugin-types": "1.0.0"
   },
   "devDependencies": {
+    "@types/node": "^22.9.3",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-live-preview": "^0.2.2"

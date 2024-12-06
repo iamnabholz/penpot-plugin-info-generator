@@ -7,6 +7,7 @@ body {
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     padding: 8px 0;
+    position: relative;
 }
 
 main {
@@ -51,6 +52,44 @@ header {
 .choice-selected {
     color: var(--la-primary);
     background-color: var(--lb-tertiary);
+}
+
+.info-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.info-container button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: transparent;
+    color: var(--lf-secondary);
+    border: 1px solid var(--lf-secondary);
+    border-radius: 100px;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    opacity: 0.6;
+    transition: opacity 0.2s ease-out;
+}
+
+.info-container button:hover {
+    opacity: 1;
+}
+
+.info-content {
+    background-color: var(--lb-secondary);
+    display: none;
+    padding: 8px 8px;
+    padding-bottom: 2rem;
+    transition: display 0.2s ease-out;
+}
+
+.info-content.visible {
+    display: block;
 }
 
 [data-theme="dark"] {

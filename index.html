@@ -10,6 +10,23 @@
     <body>
         <main>
             <section>
+                <button
+                    type="button"
+                    data-appearance="primary"
+                    data-handler="avatar-image"
+                >
+                    Generate Pixel Avatar
+                </button>
+                <span>
+                    Based on '<a
+                        target="_blank"
+                        href="https://github.com/laurentpayot/minidenticons"
+                        >minidenticon</a
+                    >' (beta)
+                </span>
+            </section>
+
+            <section>
                 <div class="choice-selector">
                     <p class="choice-selected">Any</p>
                     <p>Male</p>
@@ -62,6 +79,19 @@
                 <p>Random date in the format 'DD/MM/YYYY'</p>
             </section>
         </main>
+
+        <!--
+    <div class="info-container">
+        <button>i</button>
+        <div class="info-content">
+            <p>
+                This is a starter profile for Penpot. It includes a variety of elements that you can use to create
+                yourown profile.
+            </p>
+        </div>
+    </div>
+    -->
+
         <script type="module" src="/src/main.ts"></script>
     </body>
 </html>

@@ -4,6 +4,13 @@ import "./style.css";
 const searchParams = new URLSearchParams(window.location.search);
 document.body.dataset.theme = searchParams.get("theme") ?? "light";
 
+document
+  .querySelector("[data-handler='avatar-image']")
+  ?.addEventListener("click", () => {
+    // send message to plugin.ts
+    parent.postMessage("avatar-image", "*");
+  });
+
 const choiceSelector = document.querySelector(".choice-selector")!;
 let selectedValue = "Any";
 
@@ -22,10 +29,10 @@ choiceSelector.addEventListener("click", (event: Event) => {
 });
 
 document
-  .querySelector("[data-handler='date-text']")
+  .querySelector("[data-handler='name-text']")
   ?.addEventListener("click", () => {
     // send message to plugin.ts
-    parent.postMessage("date-text", "*");
+    parent.postMessage({ msg: "name-text", type: selectedValue }, "*");
   });
 
 document
@@ -43,11 +50,15 @@ document
   });
 
 document
-  .querySelector("[data-handler='name-text']")
+  .querySelector("[data-handler='date-text']")
   ?.addEventListener("click", () => {
     // send message to plugin.ts
-    parent.postMessage({ msg: "name-text", type: selectedValue }, "*");
+    parent.postMessage("date-text", "*");
   });
+
+document.querySelector(".info-container button")?.addEventListener("click", () => {
+  document.querySelector(".info-content")?.classList.toggle("visible");
+});
 
 // Listen plugin.ts messages
 window.addEventListener("message", (event) => {

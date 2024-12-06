@@ -1,10 +1,96 @@
+import { Group, Shape } from "@penpot/plugin-types";
 import country from "../public/countries.json";
 import names from "../public/names.json";
 import usernames from "../public/usernames.json";
 
+import { minidenticon, getRandomColor } from "./avatar";
+
 const namesCombinedList = [...names.male, ...names.female];
 
 penpot.ui.open("Starter Profile Generator", `?theme=${penpot.theme}`);
+
+const createImageElement = async (avatarSeed: string, selection?: Group | Shape) => {
+  const svgData = minidenticon(avatarSeed);
+  const svgGroup = penpot.createShapeFromSvg(svgData);
+
+  const dimension = [selection ? selection.width : 80, selection ? selection.height : 80];
+
+  if (svgGroup) {
+    svgGroup.proportionLock = selection ? false : true;
+    svgGroup.resize(dimension[0] * 0.8, dimension[1] * 0.8);
+
+    svgGroup.children.forEach((child) => {
+      if (child.name === "base-background") {
+        child.remove();
+      }
+    });
+
+    penpot.flatten([svgGroup]);
+    svgGroup.fills = [{ fillOpacity: 1, fillColor: "#ffffff" }];
+    svgGroup.name = "base-avatar";
+
+    if (selection && penpot.utils.types.isGroup(selection)) {
+      selection.children.forEach((child) => {
+        if (child.name === "base-background") {
+          child.fills = [{ fillOpacity: 1, fillColor: getRandomColor(avatarSeed) }];
+          selection.insertChild(selection.children.length, svgGroup);
+          svgGroup.x = child.center.x - svgGroup.width / 2;
+          svgGroup.y = child.center.y - svgGroup.height / 2;
+        } else {
+          child.remove();
+        }
+      });
+    } else if (selection) {
+      const avatarGroup = penpot.group([svgGroup]);
+
+      if (avatarGroup) {
+        selection.fills = [{ fillOpacity: 1, fillColor: getRandomColor(avatarSeed) }];
+        selection.name = "base-background";
+        avatarGroup.insertChild(0, selection);
+        svgGroup.x = selection.center.x - svgGroup.width / 2;
+        svgGroup.y = selection.center.y - svgGroup.height / 2;
+        avatarGroup.x = selection ? selection.x : penpot.viewport.center.x;
+        avatarGroup.y = selection ? selection.y : penpot.viewport.center.y;
+
+        avatarGroup.name = "avatar-" + avatarSeed;
+
+        penpot.selection = [avatarGroup];
+      }
+    }
+    else {
+      const background = penpot.createRectangle()
+      background.resize(dimension[0], dimension[1]);
+      background.fills = [{ fillOpacity: 1, fillColor: getRandomColor(avatarSeed) }];
+      background.name = "base-background";
+
+      const avatarGroup = penpot.group([svgGroup]);
+
+      if (avatarGroup) {
+        avatarGroup.insertChild(0, background);
+        svgGroup.x = background.center.x - svgGroup.width / 2;
+        svgGroup.y = background.center.y - svgGroup.height / 2;
+        avatarGroup.x = penpot.viewport.center.x;
+        avatarGroup.y = penpot.viewport.center.y;
+
+        avatarGroup.name = "avatar-" + avatarSeed;
+
+        penpot.selection = [avatarGroup];
+      }
+    }
+  }
+
+  /*
+  penpot.uploadMediaData('avatar', image, 'image/svg+xml').then((imageData) => {
+    const shape = penpot.createRectangle();
+    shape.boardX = penpot.viewport.center.x;
+    shape.boardY = penpot.viewport.center.y;
+    //shape.resize(imageData.width, imageData.height);
+    shape.fills = [
+      { fillOpacity: 1, fillImage: imageData },
+    ];
+    //console.log(imageData);
+  });*/
+};
 
 const createTextElement = (text: string) => {
   const element = penpot.createText(text);
@@ -29,7 +115,11 @@ const getRandomName = (type: string) => {
 
 const getRandomUsername = () => {
   const first = usernames[Math.floor(Math.random() * usernames.length)];
-  //const second = usernames[Math.floor(Math.random() * usernames.length)];
+  const second = usernames[Math.floor(Math.random() * usernames.length)];
+
+  if (first.length <= 5 && second.length <= 7) {
+    return first + '-' + second;
+  }
 
   return first + Math.floor(Math.random() * 9999).toString();
 };
@@ -43,6 +133,23 @@ const getRandomDate = () => {
 };
 
 penpot.ui.onMessage<any>((message) => {
+  if (message === "avatar-image") {
+    const selection = penpot.selection;
+
+    if (selection.length > 0) {
+      selection.forEach((element) => {
+        if (penpot.utils.types.isGroup(element) || penpot.utils.types.isEllipse(element) || penpot.utils.types.isRectangle(element)) {
+          createImageElement(new Date().getMilliseconds().toString(), element);
+        }
+        else {
+          createImageElement(new Date().getMilliseconds().toString())
+        }
+      });
+    } else {
+      createImageElement(new Date().getMilliseconds().toString())
+    }
+  }
+
   if (message === "country-text") {
     const selection = penpot.selection;
 

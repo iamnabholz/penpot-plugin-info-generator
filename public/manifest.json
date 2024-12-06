@@ -2,6 +2,9 @@
   "name": "Starter Profile",
   "code": "plugin.js",
   "icon": "content/icon.png",
-  "description": "Generate placeholder information for your designs; usernames, names, countries and more.",
-  "permissions": ["content:read", "content:write"]
+  "description": "Generate placeholder information for your designs: avatars, usernames, names, countries and more.",
+  "permissions": [
+    "content:read",
+    "content:write"
+  ]
 }
